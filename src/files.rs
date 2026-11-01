@@ -118,6 +118,7 @@ impl SafeParent {
             Ok(File::open(path)?)
         }
     }
+    #[cfg(unix)]
     fn open_directory(&self, name: &std::ffi::OsStr) -> Result<File> {
         #[cfg(unix)]
         {
@@ -137,10 +138,6 @@ impl SafeParent {
                 return Err(std::io::Error::last_os_error().into());
             }
             Ok(unsafe { File::from_raw_fd(fd) })
-        }
-        #[cfg(not(unix))]
-        {
-            Ok(File::open(self.directory.join(name))?)
         }
     }
     fn create_file(&self, name: &std::ffi::OsStr) -> Result<File> {
@@ -433,6 +430,7 @@ fn directory_entries(root: &Path, target: &Path) -> Result<Vec<DirectoryEntry>> 
     }
     #[cfg(not(unix))]
     {
+        let _ = root;
         for entry in fs::read_dir(target)? {
             let entry = entry?;
             let name = entry.file_name().to_string_lossy().to_string();
@@ -1328,6 +1326,7 @@ struct ArchiveMember {
     index: usize,
     path: PathBuf,
     is_dir: bool,
+    #[cfg(unix)]
     mode: u32,
     size: u64,
 }
@@ -1454,6 +1453,7 @@ pub fn extract_zip_cancellable(
             index,
             path: member_path,
             is_dir,
+            #[cfg(unix)]
             mode,
             size: member.size(),
         });
