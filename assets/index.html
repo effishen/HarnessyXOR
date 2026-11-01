@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="HarnessyXOR — your local agent workspace, powered by Rust.">
+  <title>HarnessyXOR</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23ea936c'/%3E%3Cpath d='M11 10v20m18-20v20M11 20h18' fill='none' stroke='%23141820' stroke-width='5'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/assets/app.css">
+  <script defer src="/assets/app.js"></script>
+</head>
+<body>
+  <div id="auth-screen" class="auth-screen" hidden>
+    <div class="auth-card">
+      <span class="brand-mark large" aria-hidden="true">H<span>R</span></span>
+      <p class="eyebrow">YOUR PROJECT TEAM</p>
+      <h1>HarnessyXOR</h1>
+      <p id="auth-description">Sign in to your workspace.</p>
+      <div id="setup-help" hidden>
+        <p>Create your first account from a terminal on this host:</p>
+        <code class="setup-command">harnessyxor account create &lt;username&gt;</code>
+        <p class="muted">Then refresh this page. Account setup stays on the host.</p>
+        <button id="auth-refresh" class="button primary" type="button">Refresh sign-in status</button>
+      </div>
+      <form id="login-form">
+        <label>Username<input id="login-username" autocomplete="username" required maxlength="80"></label>
+        <label>Password<input id="login-password" type="password" autocomplete="current-password" required></label>
+        <p id="login-error" class="error-text" role="alert"></p>
+        <button class="button primary full" type="submit">Sign in <span aria-hidden="true">→</span></button>
+      </form>
+      <div class="auth-foot"><span class="rust-dot"></span> Native Rust · Local first</div>
+    </div>
+  </div>
+
+  <div id="app-shell" class="app-shell" hidden>
+    <button id="sidebar-backdrop" class="sidebar-backdrop" aria-label="Close navigation" hidden></button>
+    <aside id="sidebar" class="sidebar" aria-label="Workspaces and projects">
+      <a class="brand" href="/" aria-label="HarnessyXOR home"><span class="brand-mark" aria-hidden="true">H<span>R</span></span><span>Harnessy<span class="brand-xor">XOR</span><small>PROJECT TEAM CONTROLLER</small></span><span class="alpha-tag">α</span></a>
+      <div class="workspace-control"><label class="sr-only" for="workspace-select">Workspace</label><select id="workspace-select"><option value="">Choose a workspace</option></select><button id="workspace-settings" class="icon-button" title="Workspace configuration" aria-label="Workspace configuration">⚙</button><button id="new-workspace" class="icon-button" title="New workspace" aria-label="New workspace">+</button></div>
+      <div class="sidebar-section-label"><span>PROJECTS</span><button id="new-project" class="icon-button" title="New project" aria-label="New project">+</button></div>
+      <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="project-search" type="search" placeholder="Find a project…" aria-label="Find a project"></div>
+      <div class="project-filter"><button id="active-projects" class="text-button selected">Active</button><button id="archived-projects" class="text-button">Archived</button><span id="project-count" class="count">0</span></div>
+      <nav id="project-list" class="project-list" aria-label="Projects"></nav>
+      <div class="sidebar-bottom">
+        <div id="queue-summary" class="queue-summary"><span class="status-dot"></span><span>Queue is clear</span><span id="slot-count">1 slot</span></div>
+        <button id="open-settings" class="sidebar-action"><span aria-hidden="true">⚙</span><span>Models &amp; runtime</span><kbd>⌘ ,</kbd></button>
+        <a class="sidebar-action" href="/port-status" target="_blank" rel="noopener"><span aria-hidden="true">◫</span><span>Help &amp; capabilities</span><span aria-hidden="true">↗</span></a>
+        <div class="account-row"><span id="user-avatar" class="avatar">U</span><span id="signed-in-user">Signed in</span><button id="theme-toggle" class="icon-button" aria-label="Switch color theme" title="Switch color theme">☀</button><button id="logout" class="icon-button" title="Sign out" aria-label="Sign out">↪</button></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><button id="menu-toggle" class="icon-button mobile-only" aria-label="Open navigation">☰</button><div class="breadcrumbs"><span id="workspace-label">Workspace</span><span class="breadcrumb-slash">/</span><strong id="project-label">Welcome</strong><span id="project-lock" class="subtle-badge" hidden>Read only</span></div><div class="topbar-right"><span id="connection-state" class="connection-state"><span class="status-dot"></span>Connected</span><button id="search-conversation" class="icon-button" title="Search saved conversation" aria-label="Search saved conversation" disabled>⌕</button><button id="project-menu" class="icon-button" title="Project actions" aria-label="Project actions" disabled>···</button></div></header>
+      <div id="project-tabs" class="tabs" role="tablist" aria-label="Project views" hidden><button class="tab active" role="tab" aria-selected="true" data-tab="chat">Architect</button><button class="tab" role="tab" aria-selected="false" data-tab="team">Team</button><button class="tab" role="tab" aria-selected="false" data-tab="changes">Changes</button><button class="tab" role="tab" aria-selected="false" data-tab="knowledge">Knowledge</button><button class="tab" role="tab" aria-selected="false" data-tab="regression">Regression</button><button class="tab" role="tab" aria-selected="false" data-tab="files">Files</button><span id="run-state" class="run-state"></span></div>
+      <div id="notice" class="notice" role="status" hidden><span id="notice-text"></span><button id="dismiss-notice" class="icon-button" aria-label="Dismiss notice">×</button></div>
+      <section id="welcome-view" class="welcome-view">
+        <div class="welcome-inner"><div class="welcome-symbol" aria-hidden="true">✳</div><p class="eyebrow">ONE PROJECT. ONE SHARED GOAL.</p><h1>Your architect.<br>Your whole team.</h1><p class="welcome-copy">Talk to the Principal Architect. Follow the team’s work,<br>review changes, and keep decisions and evidence together.</p><button id="welcome-create" class="button primary">Create a workspace <span aria-hidden="true">+</span></button><div class="welcome-features"><div><span aria-hidden="true">◈</span><strong>A clear point of contact</strong><p>The architect coordinates teammates inside each project.</p></div><div><span aria-hidden="true">⌘</span><strong>Changes you can inspect</strong><p>Git proposals keep reviews, objections and checks attached.</p></div><div><span aria-hidden="true">▤</span><strong>Knowledge that lasts</strong><p>Requirements, decisions and regression history stay with the work.</p></div></div><p class="preview-note">Start a new project and choose a model in Models &amp; runtime.</p></div>
+      </section>
+      <section id="chat-view" class="chat-view" hidden aria-label="Principal Architect conversation"><div class="architect-heading"><span class="role-tag">PRINCIPAL ARCHITECT</span><span id="architect-summary">Coordinates this project’s team</span><div class="action-row"><button id="pause-project" class="text-button" type="button">Pause project</button><button id="resume-project" class="text-button" type="button" hidden>Resume project</button></div></div><details id="project-activity" class="project-activity"><summary>Team activity <span id="activity-count"></span></summary><div id="activity-feed"></div></details><div id="baseline-hint" class="baseline-hint" hidden>Prepare initial source in <button id="baseline-files" class="inline-button" type="button">Files</button> before the first message to the Architect. The first Architect run seals this initial baseline; later changes use reviewed worker proposals.</div><div id="transcript-scroll" class="transcript-scroll"><div id="transcript" class="transcript"></div></div><aside id="prompt-navigator" class="prompt-navigator" aria-label="Prompt navigator"></aside><button id="jump-latest" class="jump-latest" hidden>↓ Jump to latest</button><div class="composer-area"><div id="approval-panel" class="approval-panel" hidden></div><form id="composer-form" class="composer"><label class="sr-only" for="composer-input">Message</label><textarea id="composer-input" placeholder="Tell the Principal Architect what you want to do…" rows="2" spellcheck="true"></textarea><div class="composer-toolbar"><div class="composer-options"><label class="sr-only" for="model-select">Model profile</label><select id="model-select" title="Model profile"></select><span id="context-hint" class="context-hint"></span></div><div class="composer-send"><button id="stop-run" class="button stop" type="button" hidden>■ Stop</button><button id="send-prompt" class="send-button" type="submit" title="Send message" aria-label="Send message">↑</button></div></div></form><div class="composer-foot"><span>Shift + Enter for a new line</span><span id="composer-status">Conversations are saved on this host</span></div></div></section>
+      <section id="files-view" class="content-view files-view" hidden aria-label="Project files"></section>
+      <section id="team-view" class="content-view" hidden aria-label="Project team"></section>
+      <section id="changes-view" class="content-view" hidden aria-label="Project changes"></section>
+      <section id="knowledge-view" class="content-view" hidden aria-label="Project knowledge"></section>
+      <section id="regression-view" class="content-view" hidden aria-label="Project regression catalog"></section>
+      <section id="environments-view" class="content-view" hidden aria-label="Workspace environments"></section>
+    </main>
+  </div>
+  <dialog id="modal" class="modal"><div id="modal-content"></div></dialog>
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+</body>
+</html>

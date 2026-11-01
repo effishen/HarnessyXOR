@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "application": "HarnessyXOR",
+  "version": "0.1.0-alpha.1",
+  "complete_port": false,
+  "baseline": {
+    "application": "HarnessyXO",
+    "version": "0.7.36",
+    "repository": "https://github.com/effishen/HarnessyXO",
+    "commit": "099d1062d80d5e92bb76196b44af58700d18a13e",
+    "tracked_python_files": 179,
+    "python_lines": 117639,
+    "declared_tools": 81,
+    "sqlite_tables": 36
+  },
+  "status_meanings": {
+    "PARTIAL": "Useful behavior exists; full source parity is not established.",
+    "MISSING": "No equivalent product flow is implemented."
+  },
+  "current_model_tools": [
+    "list_files",
+    "read_file",
+    "write_file",
+    "pack_zip",
+    "list_environments",
+    "run_command",
+    "read_memory",
+    "save_memory",
+    "chat_history"
+  ],
+  "validation": {
+    "environment": "Linux container",
+    "scope": [
+      "build",
+      "HTTP APIs",
+      "SQLite persistence and legacy WAL import",
+      "authentication and session controls",
+      "file safety and archive controls",
+      "synthetic model streaming/tool/cancellation flows"
+    ],
+    "unverified": [
+      "browser visual checks",
+      "native macOS host",
+      "native Windows host",
+      "actual Lima/KVM/VZ guests",
+      "Windows installation",
+      "OpenWrt radios",
+      "physical hardware"
+    ]
+  },
+  "subsystems": [
+    {
+      "id": "agent_loop_completion_history",
+      "label": "Agent loop, completion and history",
+      "status": "PARTIAL",
+      "available": "Native tool loop and bounded completion checks",
+      "remaining": "Original completion holds, delegation and history finalization"
+    },
+    {
+      "id": "authentication_credentials_accounts",
+      "label": "Accounts and credentials",
+      "status": "PARTIAL",
+      "available": "Separate Argon2id accounts and revocable sessions",
+      "remaining": "Account UI and legacy account migration"
+    },
+    {
+      "id": "context_memory_instructions",
+      "label": "Context, memory and instructions",
+      "status": "PARTIAL",
+      "available": "Conservative trimming, retained history and JSON memory",
+      "remaining": "Backend token calibration, instruction documents and memory provenance"
+    },
+    {
+      "id": "core_platform_support",
+      "label": "Host/platform support",
+      "status": "PARTIAL",
+      "available": "Rust application and platform launchers",
+      "remaining": "Native host validation and provider-specific behavior"
+    },
+    {
+      "id": "database_integrity_recovery",
+      "label": "Database integrity and recovery",
+      "status": "PARTIAL",
+      "available": "Separate SQLite WAL store and integrity checks",
+      "remaining": "Original admission barriers, quarantine, workers and migration"
+    },
+    {
+      "id": "diagnostics_sanitized_observations",
+      "label": "Sanitized diagnostics",
+      "status": "PARTIAL",
+      "available": "Fixed counts and saved phase observations; no content or guest connections",
+      "remaining": "Original bounded controller, guest, transport, storage and model evidence"
+    },
+    {
+      "id": "export_pdf_templates",
+      "label": "PDF and template exports",
+      "status": "MISSING",
+      "available": "",
+      "remaining": "Printable PDF generation, previews, content selection and templates"
+    },
+    {
+      "id": "files_archive_outputs",
+      "label": "Files, archives and output ownership",
+      "status": "PARTIAL",
+      "available": "Project file operations, ZIP packaging/extraction and recoverable trash/restore",
+      "remaining": "References, wider operations, output ownership and history"
+    },
+    {
+      "id": "history_branch_rewind_navigator",
+      "label": "Branch, rewind and prompt navigation",
+      "status": "PARTIAL",
+      "available": "Basic prompt navigation and bookmarks",
+      "remaining": "Branches, transactional rewinds and edit/replace"
+    },
+    {
+      "id": "host_runtime_prerequisites",
+      "label": "Host runtime prerequisites",
+      "status": "PARTIAL",
+      "available": "Read-only doctor prerequisite checks",
+      "remaining": "Automatic verified runtime installation and repair"
+    },
+    {
+      "id": "launcher_update_distribution",
+      "label": "Launchers, updates and distribution",
+      "status": "PARTIAL",
+      "available": "Pinned Rust build and native launchers",
+      "remaining": "Automatic verified updates and native release validation"
+    },
+    {
+      "id": "model_backends_streaming_telemetry",
+      "label": "Model backends, streaming and telemetry",
+      "status": "PARTIAL",
+      "available": "OpenAI-compatible and Ollama streams, reasoning, tools and basic usage",
+      "remaining": "Full provider-specific controls, progress probes and accounting"
+    },
+    {
+      "id": "notifications_remote_replies",
+      "label": "Notifications and remote replies",
+      "status": "MISSING",
+      "available": "",
+      "remaining": "Notification providers and remote reply/command sessions"
+    },
+    {
+      "id": "package",
+      "label": "Package structure",
+      "status": "PARTIAL",
+      "available": "Cargo project, bundled UI, license and user documentation",
+      "remaining": "Complete native distribution and remaining source resources"
+    },
+    {
+      "id": "permissions_external_targets",
+      "label": "External-target permissions",
+      "status": "MISSING",
+      "available": "",
+      "remaining": "External SSH targets and credential/action policies"
+    },
+    {
+      "id": "permissions_project_isolation",
+      "label": "Project permissions and isolation",
+      "status": "PARTIAL",
+      "available": "Project file boundaries and explicit Linux VM project grants",
+      "remaining": "Upstream/reference views, copied deployments and complete access/projection controls"
+    },
+    {
+      "id": "scheduling_queue_recovery",
+      "label": "Scheduling and queue recovery",
+      "status": "PARTIAL",
+      "available": "Shared slots, queued runs, cancellation and interrupted recovery",
+      "remaining": "Original admission/completion holds, richer queue and delegated-task limits"
+    },
+    {
+      "id": "storage_schema_queue_settings",
+      "label": "Storage, queue and settings",
+      "status": "PARTIAL",
+      "available": "Native records, JSON/Markdown exports and copy-based legacy import",
+      "remaining": "All original records and lossless active migration"
+    },
+    {
+      "id": "tools_browser_research_code_processes",
+      "label": "Browser, research, code and process tools",
+      "status": "MISSING",
+      "available": "",
+      "remaining": "Browser, research, code intelligence, Git/process and remaining tool families"
+    },
+    {
+      "id": "vm_desktop_vnc",
+      "label": "VM desktops and VNC",
+      "status": "MISSING",
+      "available": "",
+      "remaining": "Desktop readiness, browser desktops and proxies"
+    },
+    {
+      "id": "vm_lifecycle_operations_snapshots",
+      "label": "VM lifecycle and snapshots",
+      "status": "PARTIAL",
+      "available": "Existing Lima registration, status, start and stop",
+      "remaining": "Creation, provisioning, rebuild/reset, snapshots, resources and all providers"
+    },
+    {
+      "id": "vm_mounts_files_ssh",
+      "label": "VM mounts, files and SSH",
+      "status": "PARTIAL",
+      "available": "Explicit SSH command path and project mount proof",
+      "remaining": "Original SSHFS/SFTP views, mount repair and full recovery"
+    },
+    {
+      "id": "vm_openwrt_wireless",
+      "label": "OpenWrt and emulated wireless",
+      "status": "MISSING",
+      "available": "",
+      "remaining": "MIPS providers, images/packages, radios and their diagnostics"
+    },
+    {
+      "id": "vm_windows_iso_unattended",
+      "label": "Windows ISO and unattended setup",
+      "status": "MISSING",
+      "available": "",
+      "remaining": "ISO acquisition, verification, unattended install and readiness"
+    },
+    {
+      "id": "web_ui_interactions",
+      "label": "Browser UI interactions",
+      "status": "PARTIAL",
+      "available": "New bundled project/chat/settings/files/environment UI",
+      "remaining": "Full original interactions, historical operations, exports and visual/native verification"
+    }
+  ],
+  "historical": true,
+  "superseded_by": "ARCHITECTURE.md",
+  "current_architecture": "project-first"
+}
